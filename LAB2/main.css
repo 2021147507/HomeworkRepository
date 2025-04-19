@@ -1,0 +1,107 @@
+/* 전체 페이지 기본 글꼴 및 정렬 */
+body {
+    font-family: Arial, sans-serif;       /* font-family */
+    font-size: 16px;                      /* font-size */
+    text-align: center;                   /* text-align */
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;            /* background-color */
+    color: #000000;                       /* color */
+}
+
+/* 헤더 텍스트 */
+h1 {
+    font-size: 28px;
+    margin-top: 30px;
+}
+
+/* 상단 링크 */
+a {
+    color: blue;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+/* 폼을 감싸는 박스 */
+.form-box {
+    width: 400px;                         /* width */
+    margin: 30px auto;                    /* margin */
+    padding: 20px;                        /* padding */
+    border: 2px solid #000;               /* border */
+    background-color: #ffffff;
+    text-align: left;
+}
+
+/* 폼 라벨과 인풋 정렬 */
+form label {
+    display: inline-block;
+    width: 90px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+form input,
+form select {
+    width: 250px;
+    height: 30px;                         /* height */
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.gender-container {
+    display: inline-block;
+    width: 250px; /* input들과 정확히 정렬 */
+    height: 30px;
+    vertical-align: middle;
+    white-space: nowrap; /* 줄바꿈 방지 */
+    line-height: 30px;
+}
+
+.gender-container label {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    margin-right: 12px;
+    white-space: nowrap;
+}
+
+.gender-container input[type="radio"] {
+    transform: scale(0.8);
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+/* 버튼들 */
+.signup-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    width: 100px;
+    height: 35px;
+    margin-right: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    width: 100px;
+    height: 35px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.nav-link {
+    text-decoration: underline;
+    font-weight: normal;
+    color: blue;
+}
+
+.nav-current {
+    text-decoration: underline;
+    font-weight: normal;
+    color: black;
+    cursor: default;
+}
