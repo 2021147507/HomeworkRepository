@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <h1>Welcome to INTERNET-PROGRAMMING MOVIE SITE</h1>
+
+    <p>
+        <span class="nav-current">로그인</span> |
+        <a href="signup.html" class="nav-link">회원가입</a>
+      </p>
+      
+    <div class="form-box">
+        <form action="/login" method="post">
+            <label for="userid">아이디 :</label>
+            <input type="text" id="userid" name="userid" placeholder="아이디 입력" required autofocus autocomplete="username"><br>
+
+            <label for="password">비밀번호 :</label>
+            <input type="password" id="password" name="password" placeholder="비밀번호 입력" required autocomplete="current-password"><br>
+
+            <button type="submit" class="signup-btn">Login</button>
+            <button type="button" class="cancel-btn" onclick="location.href='signup.html'">Cancel</button>
+        </form>
+    </div>
+</body>
+</html>
