@@ -1,0 +1,337 @@
+/* ------------------------------------------- */
+/* 기존 signup/login 스타일 - 절대 수정하지 않음 */
+/* ------------------------------------------- */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+    color: #000000;
+}
+
+h1 {
+    font-size: 28px;
+    margin-top: 30px;
+}
+
+a {
+    color: blue;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.form-box {
+    width: 400px;
+    margin: 30px auto;
+    padding: 20px;
+    border: 2px solid #000;
+    background-color: #ffffff;
+    text-align: left;
+}
+
+form label {
+    display: inline-block;
+    width: 90px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+form input,
+form select {
+    width: 250px;
+    height: 30px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.gender-container {
+    display: inline-block;
+    width: 250px;
+    height: 30px;
+    vertical-align: middle;
+    white-space: nowrap;
+    line-height: 30px;
+}
+
+.gender-container label {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    margin-right: 12px;
+    white-space: nowrap;
+}
+
+.gender-container input[type="radio"] {
+    transform: scale(0.8);
+    margin-right: 4px;
+    vertical-align: middle;
+}
+
+.signup-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    width: 100px;
+    height: 35px;
+    margin-right: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    width: 100px;
+    height: 35px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.nav-link {
+    text-decoration: underline;
+    font-weight: normal;
+    color: blue;
+}
+
+.nav-current {
+    text-decoration: underline;
+    font-weight: normal;
+    color: black;
+    cursor: default;
+}
+
+/* =========================================== */
+/* ======== index.html 전용 스타일 시작 ======== */
+/* =========================================== */
+
+body.index-page {
+    background-color: white;
+    color: black;
+}
+
+.index-page a {
+    color: black;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 검색창 영역 */
+.search-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#searchInput {
+    flex: 1;
+    max-width: 400px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+#filterBtn {
+    padding: 8px 14px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#filterBtn:hover {
+    background-color: #0056b3;
+}
+
+/* 메인 콘텐츠: 좌측 정렬 옵션, 우측 영화 목록 */
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* 좌측 정렬 옵션 */
+.sort-options {
+    flex: 1 1 200px;
+    max-width: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    text-align: left;
+}
+
+.sort-options fieldset {
+    border: none;
+    padding: 0;
+}
+
+.sort-options label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+/* 우측 영화 목록 */
+#movieList {
+    flex: 3 1 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* 영화 아이템 */
+.movie-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #fdfdfd;
+    transition: background-color 0.3s;
+    position: relative;
+}
+
+.movie-item:hover {
+    background-color: #f0f8ff;
+}
+
+.summary {
+    display: none;
+    margin-top: 10px;
+    color: #555;
+}
+
+.movie-item:hover .summary {
+    display: block;
+}
+
+
+/* 구분선 */
+.section-divider {
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
+  width: 100%;
+  max-width: 1020px;
+}
+
+#movieList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.movie-item {
+  width: calc(50% - 10px);
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #fff;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.poster-container {
+  position: relative;
+  width: 100%;
+}
+
+.poster-img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.summary-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  padding: 10px;
+  text-align: center;
+}
+
+.poster-container:hover .summary-overlay {
+  opacity: 1;
+}
+
+.movie-info {
+  margin-top: 10px;
+}
+
+.movie-info p {
+  margin: 5px 0;
+}
+
+
+
+
+/* 애니메이션 텍스트 (선택사항) */
+.header-wrapper {
+    overflow: hidden;
+    padding: 20px;
+}
+
+.header-text {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 32px;
+    color: black;
+    animation-name: slide-left;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    margin: 0;
+    text-align: left;
+}
+
+@keyframes slide-left {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* 네비게이션 바 (선택사항) */
+.nav-bar {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 0;
+    margin: 0;
+}
+
+.nav-links li a {
+    font-weight: bold;
+}

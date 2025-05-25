@@ -1,0 +1,272 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>인프밍 영화 정보</title>
+  <link rel="stylesheet" href="main.css">
+  <style>
+    body.index-page {
+      background-color: white;
+      color: black;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+    }
+
+    .container {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    nav a {
+      color: black;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+
+    .section-divider {
+      border: 0;
+      border-top: 1px solid #ccc;
+      margin: 20px 0;
+      width: 100%;
+      max-width: 1020px;
+    }
+
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    #searchInput {
+      flex: 1;
+      max-width: 400px;
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    #filterBtn {
+      padding: 8px 14px;
+      font-size: 16px;
+      background-color: #e0e0e0;
+      color: #000;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    #filterBtn:hover {
+      background-color: #d0d0d0;
+    }
+
+    .main-content {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .sort-options {
+      flex: 1 1 200px;
+      max-width: 200px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+
+    .sort-options fieldset {
+      border: none;
+      padding: 0;
+    }
+
+    .sort-options label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    #movieList {
+      flex: 3 1 760px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .movie-item {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #fff;
+      overflow: hidden;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .poster-container {
+      position: relative;
+      width: 100%;
+    }
+
+    .poster-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .summary-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.75);
+      color: white;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .poster-container:hover .summary-overlay {
+      opacity: 1;
+    }
+
+    .movie-info {
+      padding: 10px;
+    }
+
+    .movie-info p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body class="index-page">
+  <div class="container">
+    <header>
+      <h1>인프밍 영화 정보 사이트입니다.</h1>
+      <nav>
+        <a href="index.html">메인페이지</a> |
+        <a href="signup.html">회원가입</a> |
+        <a href="login.html">로그인</a>
+      </nav>
+    </header>
+
+    <hr class="section-divider">
+
+    <section class="search-bar">
+      <input type="text" id="searchInput" placeholder="키워드를 입력하세요.">
+      <button id="filterBtn">Filter results</button>
+    </section>
+
+    <h2 class="movie-heading">Movies</h2>
+    <hr class="section-divider">
+
+    <section class="main-content">
+      <aside class="sort-options">
+        <fieldset>
+          <legend>정렬 기준</legend>
+          <label><input type="radio" name="sort" value="rating-asc"> 평점 오름차순</label>
+          <label><input type="radio" name="sort" value="rating-desc"> 평점 내림차순</label>
+          <label><input type="radio" name="sort" value="date-asc"> 개봉일 오름차순</label>
+          <label><input type="radio" name="sort" value="date-desc"> 개봉일 내림차순</label>
+        </fieldset>
+      </aside>
+      <section id="movieList"></section>
+    </section>
+  </div>
+
+  <script>
+    const movieList = document.getElementById("movieList");
+    const searchInput = document.getElementById("searchInput");
+    const filterBtn = document.getElementById("filterBtn");
+    const sortRadios = document.getElementsByName("sort");
+
+    let allMovies = [];
+    let filteredMovies = [];
+    let displayCount = 0;
+    const DISPLAY_INCREMENT = 6;
+
+    async function fetchMovies() {
+      try {
+        const res = await fetch("product.json");
+        allMovies = await res.json();
+        filteredMovies = [...allMovies];
+        displayMoreMovies();
+      } catch (err) {
+        console.error("영화 데이터를 불러오는 중 오류 발생:", err);
+      }
+    }
+
+    function getSelectedSortValue() {
+      for (let radio of sortRadios) {
+        if (radio.checked) return radio.value;
+      }
+      return "";
+    }
+
+    function filterAndSortMovies() {
+      const keyword = searchInput.value.toLowerCase();
+      const sortOption = getSelectedSortValue();
+
+      filteredMovies = allMovies.filter(movie =>
+        movie.title.toLowerCase().includes(keyword)
+      );
+
+      switch (sortOption) {
+        case "rating-asc":
+          filteredMovies.sort((a, b) => parseFloat(a.rating) - parseFloat(b.rating));
+          break;
+        case "rating-desc":
+          filteredMovies.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+          break;
+        case "date-asc":
+          filteredMovies.sort((a, b) => new Date(a.releaseDate) - new Date(b.releaseDate));
+          break;
+        case "date-desc":
+          filteredMovies.sort((a, b) => new Date(b.releaseDate) - new Date(a.releaseDate));
+          break;
+      }
+
+      displayCount = 0;
+      movieList.innerHTML = "";
+      displayMoreMovies();
+    }
+
+    function displayMoreMovies() {
+      const moviesToDisplay = filteredMovies.slice(displayCount, displayCount + DISPLAY_INCREMENT);
+      for (const movie of moviesToDisplay) {
+        const div = document.createElement("div");
+        div.className = "movie-item";
+        div.innerHTML = `
+          <div class="poster-container">
+            <img class="poster-img" src="${movie.image}" alt="${movie.title} 포스터">
+            <div class="summary-overlay">${movie.summary}</div>
+          </div>
+          <div class="movie-info">
+            <p class="title">${movie.title}</p>
+            <p class="release">📅 ${movie.releaseDate}</p>
+            <p class="rating">⭐ ${movie.rating}</p>
+          </div>
+        `;
+        movieList.appendChild(div);
+      }
+      displayCount += DISPLAY_INCREMENT;
+    }
+
+    filterBtn.addEventListener("click", filterAndSortMovies);
+    sortRadios.forEach(radio => radio.addEventListener("change", filterAndSortMovies));
+
+    window.addEventListener("scroll", () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 200 && displayCount < filteredMovies.length) {
+        displayMoreMovies();
+      }
+    });
+
+    window.addEventListener("DOMContentLoaded", fetchMovies);
+  </script>
+</body>
+</html>
